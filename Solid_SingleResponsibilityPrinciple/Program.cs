@@ -6,36 +6,22 @@ namespace Solid_SingleResponsibilityPrinciple
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to my application!");
+            StandardMessages.WelcomeMessage();
 
-            //Ask for user information
-            Person user = new Person();
+            Person user = PersonDataCapture.Capture();
 
-            Console.WriteLine("What is your first name: ");
-            user.FirstName = Console.ReadLine();
+            bool isUserValid = PersonValidator.Validate(user);
 
-            Console.WriteLine("What is your last name: ");
-            user.LastName = Console.ReadLine();
-
-            //Checks to be sure the first and last names are valid
-            if (string.IsNullOrWhiteSpace(user.FirstName))
+            //tend to use '== false'. because it's more clear.
+            if (isUserValid == false)
             {
-                Console.WriteLine("You did not give us a valid first name!");
-                Console.ReadLine();
+                StandardMessages.EndApplication();
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(user.LastName))
-            {
-                Console.WriteLine("You did not give us a valid last name!");
-                Console.ReadLine();
-                return;
-            }
+            AccountGenerator.CreateAccount(user);
 
-            //Create a username for the person
-            Console.WriteLine($"Your username is {user.FirstName.Substring(0, 1)}{user.LastName}");
-
-            Console.ReadLine();
+            StandardMessages.EndApplication();
         }
     }
 }

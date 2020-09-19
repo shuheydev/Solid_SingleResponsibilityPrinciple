@@ -1,6 +1,6 @@
 ﻿namespace Solid_SingleResponsibilityPrinciple
 {
-    internal class Person
+    public class Person
     {
         public Person()
         {
